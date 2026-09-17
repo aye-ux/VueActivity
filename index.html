@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BloomBook - Flower Encyclopedia</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Vue Application -->
+    <div id="app">
+
+        <!-- Header -->
+        <header class="header">
+            <h1>Bloom Library</h1>
+            <p>Flower Encyclopedia</p>
+        </header>
+
+        <!-- Search and Category Filter -->
+        <section class="controls">
+
+            <!-- v-model connects the search input to Vue data -->
+            <input
+                type="text"
+                v-model="search"
+                placeholder="Search for a flower..."
+            >
+            <!-- v-model connects the category filter to Vue data -->
+            <select v-model="selectedCategory">
+
+                <option value="All">All Categories</option>
+                <option value="Flowering">Flowering</option>
+                <option value="Aquatic">Aquatic</option>
+                <option value="Herb">Herb</option>
+
+            </select>
+        </section>
+
+        <!-- Summary -->
+        <section class="summary">
+
+            <!-- {{ }} interpolation displays Vue data -->
+            <p>Showing {{ filteredFlowers.length }} flowers</p>
+
+            <!-- {{ }} displays the favorite count -->
+            <p>❤️ Favorites: {{ favoriteCount }}</p>
+
+        </section>
+
+        <!-- v-if: shows when there are no matching flowers -->
+        <div
+            v-if="filteredFlowers.length === 0"
+            class="message"
+        >
+            <h2>No flowers found 🌱</h2>
+            <p>Try searching for another flower.</p>
+
+        </div>
+
+        <!-- v-else-if: shows when there are only 1 or 2 flowers -->
+        <div
+            v-else-if="filteredFlowers.length <= 2"
+            class="message"
+        >
+            <p>Here are your matching flowers.</p>
+        </div>
+
+        <!-- v-else: shows when there are more than 2 flowers -->
+        <div
+            v-else
+            class="message"
+        >
+            <p>
+                Explore the beauty, meaning, and science behind every bloom
+            </p>
+
+        </div>
+
+        <!-- Flower Cards -->
+        <main class="flower-grid">
+
+            <!-- v-for: displays each flower from the flowers array -->
+            <div
+                v-for="flower in filteredFlowers"
+                :key="flower.id"
+                class="flower-card"
+                @click="showFlower(flower)"
+            >
+                <!-- :src and :alt are v-bind shorthand -->
+                <img
+                    :src="flower.image"
+                    :alt="flower.name"
+                >
+                <div class="flower-content">
+
+                    <!-- {{ }} interpolation displays the flower name -->
+                    <h2>{{ flower.name }}</h2>
+
+                    <!-- @click handles the Favorite action -->
+                    <button
+                        @click.stop="toggleFavorite(flower)"
+                        class="favorite-btn"
+                    >
+
+                        <!-- {{ }} displays different text based on favorite -->
+                        {{ flower.favorite
+                            ? "❤️ Favorited"
+                            : "♡ Add to Favorites"
+                        }}
+                    </button>
+                </div>
+            </div>
+        </main>
+
+        <!-- v-if: shows the selected flower details -->
+        <div
+            v-if="selectedFlower"
+            class="flower-details"
+            @click.self="closeFlower"
+        >
+            <div class="details-card">
+
+                <!-- @click calls the closeFlower method -->
+                <button
+                    class="close-btn"
+                    @click="closeFlower"
+                >
+                    ✕
+                </button>
+
+                <!-- :src and :alt use v-bind -->
+                <img
+                    :src="selectedFlower.image"
+                    :alt="selectedFlower.name"
+                >
+
+
+                <!-- {{ }} displays selected flower information -->
+                <h2>{{ selectedFlower.name }}</h2>
+
+                <p class="scientific-name">
+                    {{ selectedFlower.scientificName }}
+                </p>
+
+                <p class="definition">
+                    {{ selectedFlower.definition }}
+                </p>
+
+                <span class="category">
+                    {{ selectedFlower.category }}
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vue.js 3 -->
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <!-- JavaScript file -->
+    <script src="app.js"></script>
+
+</body>
+</html>

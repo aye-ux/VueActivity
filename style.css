@@ -1,0 +1,259 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Georgia, serif;
+    background-color: #e6ccb2;
+    color: #3f352d;
+    min-height: 100vh;
+}
+
+.header {
+    background-image: url("images/tulips.jpg");
+    background-size: cover;
+    background-position: center;
+    text-align: center;
+    padding: 45px 20px;
+    background-color: #98c9a3;
+}
+
+.header h1 {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.header p {
+    font-size: 18px;
+    color: #0e0d0d;
+}
+
+.controls {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    padding: 30px 40px 20px;
+    flex-wrap: wrap;
+}
+
+.controls input,
+.controls select {
+    padding: 13px 15px;
+    border: 1px solid #c9b9a5;
+    border-radius: 10px;
+    background-color: white;
+    color: #3f352d;
+    font-size: 15px;
+    outline: none;
+}
+
+.controls input {
+    width: 300px;
+}
+
+.controls select {
+    width: 180px;
+}
+
+.controls input:focus,
+.controls select:focus {
+    border-color: #8c7561;
+}
+
+.summary {
+    max-width: 1100px;
+    margin: auto;
+    padding: 5px 20px 20px;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    color: #665547;
+}
+
+.message {
+    text-align: center;
+    padding: 15px 20px 25px;
+    color: #070707;
+}
+
+.message h2 {
+    margin-bottom: 8px;
+}
+
+.flower-grid {
+    max-width: 1100px;
+    margin: auto;
+    padding: 10px 20px 40px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+}
+
+.flower-card {
+    background-color: white;
+    border-radius: 18px;
+    overflow: hidden;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+}
+
+.flower-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.flower-card img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    display: block;
+}
+
+.flower-content {
+    padding: 20px;
+}
+
+.flower-content h2 {
+    font-size: 25px;
+    margin-bottom: 5px;
+}
+
+.favorite-btn {
+    width: 100%;
+    margin-top: 18px;
+    padding: 12px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8c7561;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.favorite-btn:hover {
+    background-color: #705c4c;
+}
+
+.flower-details {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(63, 53, 45, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    z-index: 1000;
+}
+
+.details-card {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    background-color: #ede0d4;
+    border-radius: 20px;
+    padding: 25px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+.details-card img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    background-color: #f8f3ea;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    padding: 10px;
+}
+
+.details-card h2 {
+    font-size: 28px;
+    margin-bottom: 5px;
+}
+
+.scientific-name {
+    font-style: italic;
+    color: #070707;
+    margin-bottom: 15px;
+}
+
+.definition {
+    line-height: 1.6;
+    color: #080808;
+}
+
+.category {
+    display: inline-block;
+    margin-top: 15px;
+    padding: 6px 12px;
+    background-color: #eadcc8;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #665547;
+}
+
+.close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    border-radius: 50%;
+    background-color: #eadcc8;
+    color: #3f352d;
+    font-size: 18px;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.close-btn:hover {
+    background-color: #c9b9a5;
+}
+
+@media (max-width: 600px) {
+
+    .header h1 {
+        font-size: 32px;
+    }
+
+    .controls {
+        flex-direction: column;
+        padding: 20px;
+    }
+
+    .controls input,
+    .controls select {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .summary {
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .flower-grid {
+        grid-template-columns: 1fr;
+        padding: 10px 15px 30px;
+    }
+
+    .details-card {
+        padding: 20px;
+    }
+
+    .details-card img {
+        height: 200px;
+    }
+}
