@@ -3,120 +3,162 @@
 
 <head>
     <meta charset="UTF-8">
+
+    <!-- Makes the website responsive on phones and tablets -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>BloomBook - Flower Encyclopedia</title>
+    <title>BloomLibrary - Flower Encyclopedia</title>
 
+    <!-- Connects the CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- Vue Application -->
+    <!-- Main Vue application -->
     <div id="app">
 
-        <!-- Header -->
+        <!-- Header section -->
         <header class="header">
-            <h1>Bloom Library</h1>
+
+            <h1>BloomLibrary</h1>
+
             <p>Flower Encyclopedia</p>
+
         </header>
 
-        <!-- Search and Category Filter -->
+        <!-- Search and filter section -->
         <section class="controls">
 
-            <!-- v-model connects the search input to Vue data -->
-            <input
-                type="text"
-                v-model="search"
-                placeholder="Search for a flower..."
-            >
-            <!-- v-model connects the category filter to Vue data -->
+            <!-- Search input using v-model -->
+            <div class="search-box">
+
+                <span class="search-icon">⌕</span>
+
+                <input
+                    type="text"
+                    v-model="search"
+                    placeholder="Search for a flower..."
+                >
+
+            </div>
+
+            <!-- Category filter -->
             <select v-model="selectedCategory">
 
-                <option value="All">All Categories</option>
-                <option value="Flowering">Flowering</option>
-                <option value="Aquatic">Aquatic</option>
-                <option value="Herb">Herb</option>
+                <option value="All">
+                    All Categories
+                </option>
+
+                <option value="Flowering">
+                    Flowering
+                </option>
+
+                <option value="Aquatic">
+                    Aquatic
+                </option>
+
+                <option value="Herb">
+                    Herb
+                </option>
 
             </select>
+
+            <!-- View favorites button -->
+            <!-- @click is used for the button action -->
+            <button
+                class="favorites-filter-btn"
+                @click="showFavorites = !showFavorites"
+            >
+                {{ showFavorites ? "🌸 Show All Flowers" : "❤️ View Favorites" }}
+            </button>
         </section>
 
-        <!-- Summary -->
+        <!-- Summary section -->
         <section class="summary">
 
-            <!-- {{ }} interpolation displays Vue data -->
-            <p>Showing {{ filteredFlowers.length }} flowers</p>
+            <p>
+                Showing {{ filteredFlowers.length }} flowers
+            </p>
 
-            <!-- {{ }} displays the favorite count -->
-            <p>❤️ Favorites: {{ favoriteCount }}</p>
+            <p>
+                ❤️ Favorites: {{ favoriteCount }}
+            </p>
 
         </section>
 
-        <!-- v-if: shows when there are no matching flowers -->
+        <!-- Conditional message -->
+        <!-- v-if checks if there are no flowers -->
         <div
             v-if="filteredFlowers.length === 0"
             class="message"
         >
             <h2>No flowers found 🌱</h2>
-            <p>Try searching for another flower.</p>
 
+            <p>
+                Try searching for another flower.
+            </p>
         </div>
 
-        <!-- v-else-if: shows when there are only 1 or 2 flowers -->
+        <!-- v-else-if displays a message when there are only a few results -->
         <div
             v-else-if="filteredFlowers.length <= 2"
             class="message"
         >
-            <p>Here are your matching flowers.</p>
+            <p>
+                Here are your matching flowers.
+            </p>
         </div>
 
-        <!-- v-else: shows when there are more than 2 flowers -->
+        <!-- v-else displays the normal message -->
         <div
             v-else
             class="message"
         >
             <p>
-                Explore the beauty, meaning, and science behind every bloom
+                Explore the beauty, meaning, and science behind every bloom.
             </p>
 
         </div>
 
-        <!-- Flower Cards -->
+        <!-- Flower cards -->
         <main class="flower-grid">
 
-            <!-- v-for: displays each flower from the flowers array -->
+            <!-- v-for repeats a card for every flower -->
             <div
                 v-for="flower in filteredFlowers"
                 :key="flower.id"
                 class="flower-card"
                 @click="showFlower(flower)"
             >
-                <!-- :src and :alt are v-bind shorthand -->
+                <!-- :src dynamically gets the image -->
                 <img
                     :src="flower.image"
                     :alt="flower.name"
                 >
+
                 <div class="flower-content">
 
-                    <!-- {{ }} interpolation displays the flower name -->
-                    <h2>{{ flower.name }}</h2>
+                    <!-- {{ }} displays the flower name -->
+                    <h2>
+                        {{ flower.name }}
+                    </h2>
 
-                    <!-- @click handles the Favorite action -->
+                    <!-- Favorite button -->
+                    <!-- @click.stop prevents the card popup from opening -->
                     <button
                         @click.stop="toggleFavorite(flower)"
                         class="favorite-btn"
                     >
 
-                        <!-- {{ }} displays different text based on favorite -->
-                        {{ flower.favorite
-                            ? "❤️ Favorited"
-                            : "♡ Add to Favorites"
-                        }}
+                        {{ flower.favorite ? "❤️ Favorited" : "♡ Add to Favorites" }}
+
                     </button>
                 </div>
             </div>
         </main>
 
-        <!-- v-if: shows the selected flower details -->
+        <!-- Flower details popup -->
+        <!-- v-if shows the popup only when a flower is selected -->
         <div
             v-if="selectedFlower"
             class="flower-details"
@@ -124,7 +166,7 @@
         >
             <div class="details-card">
 
-                <!-- @click calls the closeFlower method -->
+                <!-- Close button -->
                 <button
                     class="close-btn"
                     @click="closeFlower"
@@ -132,35 +174,51 @@
                     ✕
                 </button>
 
-                <!-- :src and :alt use v-bind -->
+                <!-- Flower image -->
                 <img
                     :src="selectedFlower.image"
                     :alt="selectedFlower.name"
                 >
 
+                <!-- Flower name -->
+                <h2>
+                    {{ selectedFlower.name }}
+                </h2>
 
-                <!-- {{ }} displays selected flower information -->
-                <h2>{{ selectedFlower.name }}</h2>
-
+                <!-- Scientific name -->
                 <p class="scientific-name">
                     {{ selectedFlower.scientificName }}
                 </p>
 
+                <!-- Definition -->
                 <p class="definition">
                     {{ selectedFlower.definition }}
                 </p>
 
+                <!-- Category -->
                 <span class="category">
                     {{ selectedFlower.category }}
                 </span>
+
+                <!-- Flower Care Guide -->
+                <div class="care-guide">
+
+                    <h3>
+                        🌱 Flower Care Guide
+                    </h3>
+
+                    <p>
+                        {{ selectedFlower.care }}
+                    </p>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Vue.js 3 -->
+    <!-- Vue 3 CDN -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <!-- JavaScript file -->
+    <!-- Connects the JavaScript file -->
     <script src="app.js"></script>
 
 </body>

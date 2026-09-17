@@ -1,9 +1,12 @@
+/* Applies basic settings to all elements */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
+
+/* Main page design */
 body {
     font-family: Georgia, serif;
     background-color: #e6ccb2;
@@ -11,6 +14,8 @@ body {
     min-height: 100vh;
 }
 
+
+/* Header section */
 .header {
     background-image: url("images/tulips.jpg");
     background-size: cover;
@@ -20,27 +25,84 @@ body {
     background-color: #98c9a3;
 }
 
+
+/* Main title */
 .header h1 {
     font-size: 42px;
     margin-bottom: 10px;
 }
 
+
+/* Header subtitle */
 .header p {
     font-size: 18px;
     color: #0e0d0d;
+    margin-bottom: 8px;
 }
 
+
+/* Header tagline */
+.tagline {
+    font-style: italic;
+    color: #665547;
+    font-size: 15px;
+}
+
+
+/* Search and filter section */
 .controls {
+    max-width: 1100px;
+    margin: auto;
     display: flex;
     justify-content: flex-start;
     align-items: center;
     gap: 15px;
-    padding: 30px 40px 20px;
+    padding: 30px 20px 20px;
     flex-wrap: wrap;
 }
 
-.controls input,
+
+/* Search box */
+.search-box {
+    position: relative;
+    width: 300px;
+}
+
+
+/* Search icon */
+.search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 22px;
+    color: #806b58;
+    pointer-events: none;
+}
+
+
+/* Search input */
+.search-box input {
+    width: 100%;
+    padding: 13px 15px 13px 45px;
+    border: 1px solid #c9b9a5;
+    border-radius: 10px;
+    background-color: white;
+    color: #3f352d;
+    font-size: 15px;
+    outline: none;
+}
+
+
+/* Search focus effect */
+.search-box input:focus {
+    border-color: #8c7561;
+}
+
+
+/* Category dropdown */
 .controls select {
+    width: 180px;
     padding: 13px 15px;
     border: 1px solid #c9b9a5;
     border-radius: 10px;
@@ -50,19 +112,33 @@ body {
     outline: none;
 }
 
-.controls input {
-    width: 300px;
-}
 
-.controls select {
-    width: 180px;
-}
-
-.controls input:focus,
+/* Category focus effect */
 .controls select:focus {
     border-color: #8c7561;
 }
 
+
+/* View Favorites button */
+.favorites-filter-btn {
+    padding: 13px 18px;
+    border: none;
+    border-radius: 10px;
+    background-color: #8c7561;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+
+/* Favorites button hover effect */
+.favorites-filter-btn:hover {
+    background-color: #705c4c;
+}
+
+
+/* Summary section */
 .summary {
     max-width: 1100px;
     margin: auto;
@@ -73,25 +149,37 @@ body {
     color: #665547;
 }
 
+
+/* Message above the flower cards */
 .message {
     text-align: center;
     padding: 15px 20px 25px;
     color: #070707;
 }
 
+
+/* Message heading */
 .message h2 {
     margin-bottom: 8px;
 }
 
+
+/*
+    Flower grid
+
+    Four columns are displayed on larger screens.
+*/
 .flower-grid {
     max-width: 1100px;
     margin: auto;
     padding: 10px 20px 40px;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 25px;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
+
+/* Individual flower card */
 .flower-card {
     background-color: white;
     border-radius: 18px;
@@ -101,44 +189,58 @@ body {
     cursor: pointer;
 }
 
+
+/* Flower card hover effect */
 .flower-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
 }
 
+
+/* Flower image */
 .flower-card img {
     width: 100%;
-    height: 220px;
+    height: 200px;
     object-fit: cover;
     display: block;
 }
 
+
+/* Content inside flower card */
 .flower-content {
-    padding: 20px;
+    padding: 18px;
 }
 
+
+/* Flower name */
 .flower-content h2 {
-    font-size: 25px;
+    font-size: 22px;
     margin-bottom: 5px;
 }
 
+
+/* Favorite button */
 .favorite-btn {
     width: 100%;
-    margin-top: 18px;
-    padding: 12px;
+    margin-top: 15px;
+    padding: 11px;
     border: none;
     border-radius: 10px;
     background-color: #8c7561;
     color: white;
-    font-size: 14px;
+    font-size: 13px;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
 
+
+/* Favorite button hover effect */
 .favorite-btn:hover {
     background-color: #705c4c;
 }
 
+
+/* Background overlay for popup */
 .flower-details {
     position: fixed;
     top: 0;
@@ -153,6 +255,8 @@ body {
     z-index: 1000;
 }
 
+
+/* Flower details popup */
 .details-card {
     position: relative;
     width: 100%;
@@ -166,6 +270,8 @@ body {
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
 }
 
+
+/* Image inside popup */
 .details-card img {
     width: 100%;
     height: 250px;
@@ -176,22 +282,30 @@ body {
     padding: 10px;
 }
 
+
+/* Popup flower name */
 .details-card h2 {
     font-size: 28px;
     margin-bottom: 5px;
 }
 
+
+/* Scientific name */
 .scientific-name {
     font-style: italic;
     color: #070707;
     margin-bottom: 15px;
 }
 
+
+/* Flower definition */
 .definition {
     line-height: 1.6;
     color: #080808;
 }
 
+
+/* Category label */
 .category {
     display: inline-block;
     margin-top: 15px;
@@ -202,6 +316,34 @@ body {
     color: #665547;
 }
 
+
+/* Flower Care Guide section */
+.care-guide {
+    margin-top: 20px;
+    padding: 18px;
+    background-color: #f8f3ea;
+    border-radius: 15px;
+    text-align: left;
+}
+
+
+/* Care guide title */
+.care-guide h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #665547;
+}
+
+
+/* Care guide text */
+.care-guide p {
+    line-height: 1.6;
+    font-size: 14px;
+    color: #3f352d;
+}
+
+
+/* Close button */
 .close-btn {
     position: absolute;
     top: 12px;
@@ -217,43 +359,90 @@ body {
     z-index: 2;
 }
 
+
+/* Close button hover effect */
 .close-btn:hover {
     background-color: #c9b9a5;
 }
 
+
+/*
+    Responsive design
+
+    Three columns for medium-sized screens.
+*/
+@media (max-width: 900px) {
+
+    .flower-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+}
+
+
+/*
+    Two columns for smaller tablets.
+*/
+@media (max-width: 700px) {
+
+    .flower-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+/*
+    Mobile screen design.
+*/
 @media (max-width: 600px) {
 
+    /* Makes the header title smaller */
     .header h1 {
         font-size: 32px;
     }
 
+
+    /* Stacks the search and filter */
     .controls {
         flex-direction: column;
         padding: 20px;
     }
 
-    .controls input,
-    .controls select {
+
+    /* Makes controls fit the screen */
+    .search-box,
+    .controls select,
+    .favorites-filter-btn {
         width: 100%;
         max-width: 350px;
     }
 
+
+    /* Stacks the summary */
     .summary {
         flex-direction: column;
         gap: 8px;
         text-align: center;
     }
 
+
+    /* One flower card per row */
     .flower-grid {
         grid-template-columns: 1fr;
         padding: 10px 15px 30px;
     }
 
+
+    /* Adjusts popup padding */
     .details-card {
         padding: 20px;
     }
 
+
+    /* Makes popup image smaller */
     .details-card img {
         height: 200px;
     }
+
 }
