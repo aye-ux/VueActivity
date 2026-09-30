@@ -1,371 +1,137 @@
-<<<<<<< HEAD
+
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
-
-    <!-- Makes the website responsive on phones and tablets -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>BloomLibrary - Flower Encyclopedia</title>
-
-    <!-- Connects the CSS file -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-    <!-- Main Vue application -->
     <div id="app">
 
-        <!-- Header section -->
+        <!-- MAIN HEADER -->
         <header class="header">
+            <div class="header-left">
+                <div class="title-content">
+                    <div class="title-line"></div>
+                    <h1>BloomLibrary</h1>
+                    <h2>Flower Encyclopedia</h2>
+                    <p>Explore the beauty, meaning, and science of flowers.</p>
+                    <div class="subtitle-line"></div>
+                </div>
+            </div>
 
-            <h1>BloomLibrary</h1>
-
-            <p>Flower Encyclopedia</p>
-
+            <div class="header-right">
+                <div class="logo">BLOOM</div>
+                <div class="header-image">
+                    <img src="images/tulips.jpg" alt="Beautiful tulip">
+                </div>
+            </div>
         </header>
 
-        <!-- Search and filter section -->
+        <!-- SEARCH AND FILTERS -->
         <section class="controls">
-
-            <!-- Search input using v-model -->
             <div class="search-box">
-
                 <span class="search-icon">⌕</span>
-
                 <input
                     type="text"
                     v-model="search"
                     placeholder="Search for a flower..."
+                    aria-label="Search flowers"
                 >
-
             </div>
 
-            <!-- Category filter -->
-            <select v-model="selectedCategory">
-
-                <option value="All">
-                    All Categories
-                </option>
-
-                <option value="Flowering">
-                    Flowering
-                </option>
-
-                <option value="Aquatic">
-                    Aquatic
-                </option>
-
-                <option value="Herb">
-                    Herb
-                </option>
-
-            </select>
-
-            <!-- View favorites button -->
-            <!-- @click is used for the button action -->
-            <button
-                class="favorites-filter-btn"
-                @click="showFavorites = !showFavorites"
-            >
-                {{ showFavorites ? "🌸 Show All Flowers" : "❤️ View Favorites" }}
-            </button>
-        </section>
-
-        <!-- Summary section -->
-        <section class="summary">
-
-            <p>
-                Showing {{ filteredFlowers.length }} flowers
-            </p>
-
-            <p>
-                ❤️ Favorites: {{ favoriteCount }}
-            </p>
-
-        </section>
-
-        <!-- Conditional message -->
-        <!-- v-if checks if there are no flowers -->
-        <div
-            v-if="filteredFlowers.length === 0"
-            class="message"
-        >
-            <h2>No flowers found 🌱</h2>
-
-            <p>
-                Try searching for another flower.
-            </p>
-        </div>
-
-        <!-- v-else-if displays a message when there are only a few results -->
-        <div
-            v-else-if="filteredFlowers.length <= 2"
-            class="message"
-        >
-            <p>
-                Here are your matching flowers.
-            </p>
-        </div>
-
-        <!-- v-else displays the normal message -->
-        <div
-            v-else
-            class="message"
-        >
-            <p>
-                Explore the beauty, meaning, and science behind every bloom.
-            </p>
-
-        </div>
-
-        <!-- Flower cards -->
-        <main class="flower-grid">
-
-            <!-- v-for repeats a card for every flower -->
-            <div
-                v-for="flower in filteredFlowers"
-                :key="flower.id"
-                class="flower-card"
-                @click="showFlower(flower)"
-            >
-                <!-- :src dynamically gets the image -->
-                <img
-                    :src="flower.image"
-                    :alt="flower.name"
-                >
-
-                <div class="flower-content">
-
-                    <!-- {{ }} displays the flower name -->
-                    <h2>
-                        {{ flower.name }}
-                    </h2>
-
-                    <!-- Favorite button -->
-                    <!-- @click.stop prevents the card popup from opening -->
-                    <button
-                        @click.stop="toggleFavorite(flower)"
-                        class="favorite-btn"
-                    >
-
-                        {{ flower.favorite ? "❤️ Favorited" : "♡ Add to Favorites" }}
-
-                    </button>
-                </div>
-            </div>
-        </main>
-
-        <!-- Flower details popup -->
-        <!-- v-if shows the popup only when a flower is selected -->
-        <div
-            v-if="selectedFlower"
-            class="flower-details"
-            @click.self="closeFlower"
-        >
-            <div class="details-card">
-
-                <!-- Close button -->
-                <button
-                    class="close-btn"
-                    @click="closeFlower"
-                >
-                    ✕
-                </button>
-
-                <!-- Flower image -->
-                <img
-                    :src="selectedFlower.image"
-                    :alt="selectedFlower.name"
-                >
-
-                <!-- Flower name -->
-                <h2>
-                    {{ selectedFlower.name }}
-                </h2>
-
-                <!-- Scientific name -->
-                <p class="scientific-name">
-                    {{ selectedFlower.scientificName }}
-                </p>
-
-                <!-- Definition -->
-                <p class="definition">
-                    {{ selectedFlower.definition }}
-                </p>
-
-                <!-- Category -->
-                <span class="category">
-                    {{ selectedFlower.category }}
-                </span>
-
-                <!-- Flower Care Guide -->
-                <div class="care-guide">
-
-                    <h3>
-                        🌱 Flower Care Guide
-                    </h3>
-
-                    <p>
-                        {{ selectedFlower.care }}
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Vue 3 CDN -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-
-    <!-- Connects the JavaScript file -->
-    <script src="app.js"></script>
-
-</body>
-=======
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <title>BloomBook - Flower Encyclopedia</title>
-
-    <link rel="stylesheet" href="style.css">
-</head>
-<body>
-
-    <!-- Vue Application -->
-    <div id="app">
-
-        <!-- Header -->
-        <header class="header">
-            <h1>Bloom Library</h1>
-            <p>Flower Encyclopedia</p>
-        </header>
-
-        <!-- Search and Category Filter -->
-        <section class="controls">
-
-            <!-- v-model connects the search input to Vue data -->
-            <input
-                type="text"
-                v-model="search"
-                placeholder="Search for a flower..."
-            >
-            <!-- v-model connects the category filter to Vue data -->
-            <select v-model="selectedCategory">
-
+            <select v-model="selectedCategory" aria-label="Filter by category">
                 <option value="All">All Categories</option>
                 <option value="Flowering">Flowering</option>
                 <option value="Aquatic">Aquatic</option>
                 <option value="Herb">Herb</option>
-
             </select>
+
+            <button
+                class="favorites-filter-btn"
+                @click="showFavorites = !showFavorites"
+            >
+                {{ showFavorites ? "🌸 Show All Flowers" : "♡ View Favorites" }}
+            </button>
         </section>
 
-        <!-- Summary -->
+        <!-- SUMMARY -->
         <section class="summary">
-
-            <!-- {{ }} interpolation displays Vue data -->
             <p>Showing {{ filteredFlowers.length }} flowers</p>
-
-            <!-- {{ }} displays the favorite count -->
-            <p>❤️ Favorites: {{ favoriteCount }}</p>
-
+            <p>♡ Favorites: {{ favoriteCount }}</p>
         </section>
 
-        <!-- v-if: shows when there are no matching flowers -->
-        <div
-            v-if="filteredFlowers.length === 0"
-            class="message"
-        >
+        <!-- DYNAMIC MESSAGE -->
+        <div v-if="filteredFlowers.length === 0" class="message">
             <h2>No flowers found 🌱</h2>
             <p>Try searching for another flower.</p>
-
         </div>
 
-        <!-- v-else-if: shows when there are only 1 or 2 flowers -->
-        <div
-            v-else-if="filteredFlowers.length <= 2"
-            class="message"
-        >
-            <p>Here are your matching flowers.</p>
+        <div v-else-if="filteredFlowers.length <= 2" class="message">
+            <p>Here are your flowers.</p>
         </div>
 
-        <!-- v-else: shows when there are more than 2 flowers -->
-        <div
-            v-else
-            class="message"
-        >
-            <p>
-                Explore the beauty, meaning, and science behind every bloom
-            </p>
-
+        <div v-else class="message">
+            <p>Explore the beauty, meaning, and science behind every bloom.</p>
         </div>
 
-        <!-- Flower Cards -->
+        <!-- FLOWER CARDS -->
         <main class="flower-grid">
-
-            <!-- v-for: displays each flower from the flowers array -->
             <div
                 v-for="flower in filteredFlowers"
                 :key="flower.id"
                 class="flower-card"
+                :class="flower.id % 2 === 1 ? 'burgundy-card' : 'black-card'"
                 @click="showFlower(flower)"
             >
-                <!-- :src and :alt are v-bind shorthand -->
-                <img
-                    :src="flower.image"
-                    :alt="flower.name"
-                >
-                <div class="flower-content">
+                <img :src="flower.image" :alt="flower.name">
 
-                    <!-- {{ }} interpolation displays the flower name -->
+                <div class="flower-content">
+                    <span class="card-category">
+                        {{ flower.category }}
+                    </span>
+
                     <h2>{{ flower.name }}</h2>
 
-                    <!-- @click handles the Favorite action -->
                     <button
-                        @click.stop="toggleFavorite(flower)"
                         class="favorite-btn"
+                        @click.stop="toggleFavorite(flower)"
                     >
-
-                        <!-- {{ }} displays different text based on favorite -->
-                        {{ flower.favorite
-                            ? "❤️ Favorited"
-                            : "♡ Add to Favorites"
-                        }}
+                        {{ flower.favorite ? "♥ Favorited" : "♡ Add to Favorites" }}
                     </button>
                 </div>
             </div>
         </main>
 
-        <!-- v-if: shows the selected flower details -->
+        <!-- FLOWER DETAILS POPUP -->
         <div
             v-if="selectedFlower"
             class="flower-details"
             @click.self="closeFlower"
         >
-            <div class="details-card">
-
-                <!-- @click calls the closeFlower method -->
+            <div
+                class="details-card"
+                :class="selectedFlower.id % 2 === 1 ? 'burgundy-popup' : 'black-popup'"
+            >
                 <button
                     class="close-btn"
                     @click="closeFlower"
+                    aria-label="Close"
                 >
                     ✕
                 </button>
 
-                <!-- :src and :alt use v-bind -->
                 <img
                     :src="selectedFlower.image"
                     :alt="selectedFlower.name"
                 >
 
+                <span class="category">
+                    {{ selectedFlower.category }}
+                </span>
 
-                <!-- {{ }} displays selected flower information -->
                 <h2>{{ selectedFlower.name }}</h2>
 
                 <p class="scientific-name">
@@ -376,19 +142,26 @@
                     {{ selectedFlower.definition }}
                 </p>
 
-                <span class="category">
-                    {{ selectedFlower.category }}
-                </span>
+                <div class="care-guide">
+                    <h3>Flower Care Guide</h3>
+                    <p>{{ selectedFlower.care }}</p>
+                </div>
+
+                <button
+                    class="favorite-btn popup-favorite"
+                    @click="toggleFavorite(selectedFlower)"
+                >
+                    {{ selectedFlower.favorite ? "♥ Favorited" : "♡ Add to Favorites" }}
+                </button>
             </div>
         </div>
+
     </div>
 
-    <!-- Vue.js 3 -->
+    <!-- VUE 3 -->
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
-    <!-- JavaScript file -->
+    <!-- APPLICATION JAVASCRIPT -->
     <script src="app.js"></script>
-
 </body>
->>>>>>> a10699c5602370c114fec036f82b7266f3945bc3
 </html>
