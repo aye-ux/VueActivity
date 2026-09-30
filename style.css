@@ -229,11 +229,9 @@ body {
 
 /* FLOWER CARDS */
 .flower-card {
+    position: relative;
     border-radius: 18px;
     overflow: hidden;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-    cursor: pointer;
 }
 
 .flower-card.burgundy-card {
@@ -253,13 +251,19 @@ body {
 
 .flower-card img {
     display: block;
-    width: 100%;
+    position: relative;
+    z-index: 2;
+    width: 90%;
     height: 200px;
+    margin: 15px auto -25px;
     object-fit: cover;
+    border-radius: 15px;
 }
 
 .flower-content {
-    padding: 18px;
+     position: relative;
+    z-index: 1;
+    padding: 40px 18px 18px;
 }
 
 .flower-content h2 {
