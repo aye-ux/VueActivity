@@ -1,166 +1,456 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>BloomLibrary - Flower Encyclopedia</title>
+
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
-    <div id="app">
 
-        <!-- MAIN HEADER -->
-        <header class="header">
-            <div class="header-left">
-                <div class="title-content">
-                    <div class="title-line"></div>
+<div id="app">
+
+    <!-- LANDING PAGE -->
+
+    <div v-if="currentPage === 'home'" class="landing-page">
+
+        <header class="hero">
+
+            <!-- LEFT SIDE -->
+            <div class="hero-left">
+
+                <div class="hero-copy">
+
+                    <div class="corner-line top"></div>
+
                     <h1>BloomLibrary</h1>
+
                     <h2>Flower Encyclopedia</h2>
-                    <p>Explore the beauty, meaning, and science of flowers.</p>
-                    <div class="subtitle-line"></div>
-                </div>
-            </div>
 
-            <div class="header-right">
-                <div class="logo">BLOOM</div>
-                <div class="header-image">
-                    <img src="images/cherry-blossoms.jpg" alt="Beautiful cherry blossoms">
-                </div>
-            </div>
-        </header>
-
-        <!-- SEARCH AND FILTERS -->
-        <section class="controls">
-            <div class="search-box">
-                <span class="search-icon">⌕</span>
-                <input
-                    type="text"
-                    v-model="search"
-                    placeholder="Search for a flower..."
-                    aria-label="Search flowers"
-                >
-            </div>
-
-            <select v-model="selectedCategory" aria-label="Filter by category">
-                <option value="All">All Categories</option>
-                <option value="Aquatic">Aquatic</option>
-                <option value="Herb">Herb</option>
-            </select>
-
-            <button
-                class="favorites-filter-btn"
-                @click="showFavorites = !showFavorites"
-            >
-                {{ showFavorites ? "🌸 Show All Flowers" : "♡ View Favorites" }}
-            </button>
-        </section>
-
-        <!-- SUMMARY -->
-        <section class="summary">
-            <p>Showing {{ filteredFlowers.length }} flowers</p>
-            <p>♡ Favorites: {{ favoriteCount }}</p>
-        </section>
-
-        <!-- DYNAMIC MESSAGE -->
-        <div v-if="filteredFlowers.length === 0" class="message">
-            <h2>No flowers found 🌱</h2>
-            <p>Try searching for another flower.</p>
-        </div>
-
-        <div v-else-if="filteredFlowers.length <= 2" class="message">
-            <p>Here are your flowers.</p>
-        </div>
-
-        <div v-else class="message">
-            <p>Explore the beauty, meaning, and science behind every bloom.</p>
-        </div>
-
-        <!-- FLOWER CARDS -->
-        <main class="flower-grid">
-            <div
-                v-for="flower in filteredFlowers"
-                :key="flower.id"
-                class="flower-card"
-                :class="flower.id % 2 === 1 ? 'burgundy-card' : 'black-card'"
-                @click="showFlower(flower)"
-            >
-                <img :src="flower.image" :alt="flower.name">
-
-                <div class="flower-content">
-                    <span class="card-category">
-                        {{ flower.category }}
-                    </span>
-
-                    <h2>{{ flower.name }}</h2>
+                    <p>
+                        Explore the beauty, meaning, and science of flowers.
+                    </p>
 
                     <button
-                        class="favorite-btn"
-                        @click.stop="toggleFavorite(flower)"
+                        class="primary-btn"
+                        @click="openGallery"
                     >
-                        {{ flower.favorite ? "♥ Favorited" : "♡ Add to Favorites" }}
+                        See Flower Gallery
                     </button>
-                </div>
-            </div>
-        </main>
 
-        <!-- FLOWER DETAILS POPUP -->
-        <div
-            v-if="selectedFlower"
-            class="flower-details"
-            @click.self="closeFlower"
-        >
-            <div
-                class="details-card"
-                :class="selectedFlower.id % 2 === 1 ? 'burgundy-popup' : 'black-popup'"
+                    <div class="corner-line bottom"></div>
+
+                </div>
+
+            </div>
+
+
+            <!-- RIGHT SIDE -->
+            <div class="hero-right">
+
+                <div class="hero-logo">
+                    BLOOM
+                </div>
+
+                <div class="hero-photo">
+
+                    <img
+                        src="images/cherry-blossoms.jpg"
+                        alt="Cherry blossoms"
+                    >
+
+                </div>
+
+            </div>
+
+        </header>
+
+    </div>
+
+
+
+    <!-- FLOWER GALLERY PAGE -->
+
+    <div
+        v-else-if="currentPage === 'gallery'"
+        class="gallery-page"
+    >
+
+        <!-- TOP NAVIGATION -->
+
+        <nav class="top-nav">
+
+            <button
+                type="button"
+                class="brand landing-brand"
+                @click="currentPage = 'home'"
             >
+
+                <span class="brand-flower">
+
+                    <img
+                        src="images/icon.jpg"
+                        alt="BloomLibrary icon"
+                    >
+
+                </span>
+
+                <span>
+                    BloomLibrary
+                </span>
+
+            </button>
+
+
+            <div class="nav-decoration">
+
+                <span class="nav-bloom">
+                    BLOOM
+                </span>
+
+            </div>
+
+        </nav>
+
+
+
+        <!-- GALLERY CONTENT -->
+
+        <main class="gallery-shell">
+
+            <!-- TITLE -->
+
+            <div class="gallery-heading">
+
+                <div>
+
+                    <h1>
+                        Flower Gallery
+                    </h1>
+
+                    <p>
+                        Explore the beauty, meaning, and science behind every bloom.
+                    </p>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- SEARCH + FILTER -->
+
+            <section class="controls">
+
+                <div class="search-box">
+
+                    <span class="search-icon">
+                        ⌕
+                    </span>
+
+                    <input
+                        type="text"
+                        v-model="search"
+                        placeholder="Search for a flower..."
+                        aria-label="Search flowers"
+                    >
+
+                </div>
+
+
+                <div class="category-dropdown">
+                    <button
+                        type="button"
+                        class="category-dropdown-button"
+                        @click="categoryOpen = !categoryOpen"
+                        aria-label="Filter by category"
+                        :aria-expanded="categoryOpen"
+                    >
+                     <img src="images/drop.webp" alt="" class="filter-icon">
+                        <span>
+                            {{ selectedCategory === 'All'
+                                ? 'All Categories'
+                                : selectedCategory }}
+                        </span>
+                        <span class="dropdown-arrow">⌄</span>
+                    </button>
+
+                    <div
+                        v-if="categoryOpen"
+                        class="category-dropdown-menu"
+                    >
+                        <button
+                            type="button"
+                            @click="selectedCategory = 'All'; categoryOpen = false"
+                            :class="{ active: selectedCategory === 'All' }"
+                        >
+                            All Categories
+                        </button>
+
+                        <button
+                            type="button"
+                            @click="selectedCategory = 'Terrestrial'; categoryOpen = false"
+                            :class="{ active: selectedCategory === 'Terrestrial' }"
+                        >
+                            Terrestrial
+                        </button>
+
+                        <button
+                            type="button"
+                            @click="selectedCategory = 'Aquatic'; categoryOpen = false"
+                            :class="{ active: selectedCategory === 'Aquatic' }"
+                        >
+                            Aquatic
+                        </button>
+                    </div>
+                </div>
+
+
                 <button
-                    class="close-btn"
-                    @click="closeFlower"
-                    aria-label="Close"
+                    class="favorites-filter-btn"
+                    @click="showFavorites = !showFavorites"
                 >
-                    ✕
+
+                    ♡
+                    {{ showFavorites ? "Show All" : "View Favorites" }}
+
                 </button>
+
+            </section>
+
+
+
+            <!-- SUMMARY -->
+
+            <section class="summary">
+
+                <p>
+                    Showing {{ filteredFlowers.length }} flowers
+                </p>
+
+                <p>
+                    ♡ Favorites: {{ favoriteCount }}
+                </p>
+
+            </section>
+
+
+
+            <!-- EMPTY RESULT -->
+
+            <div
+                v-if="filteredFlowers.length === 0"
+                class="empty-message"
+            >
+
+                <h2>
+                    No flowers found
+                </h2>
+
+                <p>
+                    Try searching for another flower.
+                </p>
+
+            </div>
+
+
+
+            <!-- DECORATIVE LINE -->
+
+            <div
+                v-else
+                class="gallery-rule"
+            >
+
+                <span>
+                    ✧
+                </span>
+
+            </div>
+
+
+
+            <!-- FLOWER CARDS -->
+
+            <main
+    v-if="filteredFlowers.length"
+    class="flower-grid"
+>
+
+    <article
+        v-for="flower in filteredFlowers"
+        :key="flower.id"
+        class="flower-card"
+        :class="
+            flower.id % 2 === 1
+            ? 'burgundy-card'
+            : 'black-card'
+        "
+        @click="showFlower(flower)"
+    >
+
+        <img
+            :src="flower.image"
+            :alt="flower.name"
+        >
+
+        <div class="flower-content">
+
+            <span class="card-category">
+                {{ flower.category }}
+            </span>
+
+            <h2>
+                {{ flower.name }}
+            </h2>
+
+            <div class="card-buttons">
+
+                <button
+                    class="see-more-btn"
+                    @click.stop="showFlower(flower)"
+                >
+                    See More →
+                </button>
+
+                <button
+                    class="heart-btn"
+                    :class="{ active: flower.favorite }"
+                    @click.stop="toggleFavorite(flower)"
+                >
+                    {{
+                        flower.favorite
+                        ? "♥"
+                        : "♡"
+                    }}
+                </button>
+
+            </div>
+
+        </div>
+
+    </article>
+
+</main>
+
+    </div>
+
+
+
+    <!-- =========================
+         FLOWER DETAILS PAGE
+    ========================== -->
+
+    <main
+        v-else-if="currentPage === 'details'"
+        class="flower-detail-page"
+    >
+
+        <button
+            class="back-btn"
+            @click="closeFlower"
+        >
+            ← Back to Flowers
+        </button>
+
+
+        <section class="detail-layout">
+
+            <!-- FLOWER IMAGE -->
+
+            <div class="detail-image">
 
                 <img
                     :src="selectedFlower.image"
                     :alt="selectedFlower.name"
                 >
 
-                <span class="category">
+            </div>
+
+
+            <!-- FLOWER INFORMATION -->
+
+            <div
+                class="detail-content"
+                :class="
+                    selectedFlower.id % 2 === 1
+                    ? 'burgundy-detail'
+                    : 'black-detail'
+                "
+            >
+
+                <span class="detail-category">
                     {{ selectedFlower.category }}
                 </span>
 
-                <h2>{{ selectedFlower.name }}</h2>
 
-                <p class="scientific-name">
+                <h1>
+                    {{ selectedFlower.name }}
+                </h1>
+
+
+                <p class="detail-scientific">
                     {{ selectedFlower.scientificName }}
                 </p>
 
-                <p class="definition">
-                    {{ selectedFlower.definition }}
-                </p>
 
-                <div class="care-guide">
-                    <h3>Flower Care Guide</h3>
-                    <p>{{ selectedFlower.care }}</p>
+                <div class="detail-section">
+
+                    <h2>
+                        About the Flower
+                    </h2>
+
+                    <p>
+                        {{ selectedFlower.definition }}
+                    </p>
+
                 </div>
 
+
+                <div class="detail-section">
+
+                    <h2>
+                        Flower Care Guide
+                    </h2>
+
+                    <p>
+                        {{ selectedFlower.care }}
+                    </p>
+
+                </div>
+
+
                 <button
-                    class="favorite-btn popup-favorite"
+                    class="favorite-btn"
                     @click="toggleFavorite(selectedFlower)"
                 >
-                    {{ selectedFlower.favorite ? "♥ Favorited" : "♡ Add to Favorites" }}
+
+                    {{
+                        selectedFlower.favorite
+                        ? "♥ Remove from Favorites"
+                        : "♡ Add to Favorites"
+                    }}
+
                 </button>
+
             </div>
-        </div>
 
-    </div>
+        </section>
 
-    <!-- VUE 3 -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    </main>
 
-    <!-- APPLICATION JAVASCRIPT -->
-    <script src="app.js"></script>
+</div>
+
+
+
+<!-- VUE 3 -->
+
+<script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+<script src="app.js"></script>
+
 </body>
 </html>
